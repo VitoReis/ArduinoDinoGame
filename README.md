@@ -1,7 +1,7 @@
 # Arduino Dino Game
 Jogo do dinossauro feito para arduino.
-* O prototipo do circuito esta no arquivo BRD. (Feito no Tinkercad)
-* O jogador é representado pelo LED no canto inferior esquedo.
+* O prototipo do circuito está no arquivo BRD. (Feito no Tinkercad)
+* O jogador é representado pelo LED no canto inferior esquerdo.
 * Os cactos e os pássaros são representados pelas luzes vindo da direita para esquerda.
 ------------
 Dinosaur game made for Arduino.
