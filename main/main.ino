@@ -52,14 +52,14 @@ void loop() {
   if(count1 == 2){                                              // Verifica se o jogador morreu ou não
     if(digitalRead(count1) == HIGH){
       while(true){
-        Serial.print("Você morreu, porfavor resete o programa.\n");
+        Serial.print("Você morreu, por favor resete o programa.\n");
         delay(60000);
       } 
     }
   }else if(count1 == 8){
     if(digitalRead(count1) == HIGH){
       while(true){
-        Serial.print("Você morreu, porfavor resete o programa.\n");
+        Serial.print("Você morreu, por favor resete o programa.\n");
         delay(60000);
       } 
     }
