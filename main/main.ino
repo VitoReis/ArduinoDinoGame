@@ -1,7 +1,6 @@
-#define BUTTON A0 
-int jump = 2, buttonState = 0, countJump = 0;
-bool up = false, down = false, mid = false;
-int count1 = 5, count2 = 9, count3 = 0;
+#define BUTTON A0
+bool up = false;
+int gameSpeed = 1000, count1 = 7, count2 = 0, jump = 2, buttonState = 0, cactus = 1;
 
 void setup() {
   pinMode(2, OUTPUT);
@@ -21,67 +20,55 @@ void setup() {
 }
 
 void loop() {
-  if(count3 == 4){  // Reinicia os cactos
-    count1 = 5;
-    count2 = 9;
-    count3 = 0;
+  if(count2 == 6){        // Reinicia os cactos
+    cactus = random(2);
+    if(cactus == 0){
+      count1 = 7;
+    }else{
+      count1 = 13;
+    }
+    count2 = 0;
+    gameSpeed = 350 * random(1,3);  // Altera a velocidade do jogo
   }
   
   buttonState = analogRead(BUTTON);
-  digitalWrite(count1,HIGH);  // Desenha os cactos
-  digitalWrite(count2,HIGH);
   
-  if(buttonState < 1000 && up == false && down == false && mid == false){  // Mantem o personagem aceso
+  if(buttonState < 1000 && up == false){        // Verifica onde esta o jogador
     digitalWrite(jump,HIGH);
   }
-  else if(buttonState > 1000 && up == false && down == false && mid == false){  // LED baixo aceso e tem q subir mais 2
+  else if(buttonState > 1000 && up == false){
     digitalWrite(jump,LOW);
-    jump += 4;
+    jump += 6;
     digitalWrite(jump,HIGH);
     up = true;
   }
-  else if(up == true){   // LED meio aceso e tem q subir mais 1
+  else if(up == true){
     digitalWrite(jump,LOW);
-    jump += 4;
+    jump -= 6;
     digitalWrite(jump,HIGH);
     up = false;
-    down = true;
   }
-  else if(down == true && mid == false){ // LED topo aceso e tem q cair mais 2
-    digitalWrite(jump,LOW);
-    jump -= 4;
-    digitalWrite(jump,HIGH);
-    mid = true;
-  }
-  else if(down = true && mid == true){  // LED meio aceso e tem q cair mais 1
-    digitalWrite(jump,LOW);
-    jump -= 4;
-    digitalWrite(jump,HIGH);
-    down = false;
-    mid = false;
-  }
-            
-  if(count1 == 1){                                              // Jogador morreu
+
+  if(count1 == 2){                                              // Verifica se o jogador morreu ou não
     if(digitalRead(count1) == HIGH){
       while(true){
         Serial.print("Você morreu, porfavor resete o programa.\n");
-        delay(5000);
+        delay(60000);
       } 
     }
-  }else if(count2 == 5){
-    if(digitalRead(count2) == HIGH){
+  }else if(count1 == 8){
+    if(digitalRead(count1) == HIGH){
       while(true){
         Serial.print("Você morreu, porfavor resete o programa.\n");
-        delay(5000);
+        delay(60000);
       } 
     }
   }
-  delay(2000);                // Mantem o LED do cacto aceso por 2 segundos
-  digitalWrite(count1,LOW);   // Apaga os cactos
-  digitalWrite(count2,LOW);
-  
-  
+
+  digitalWrite(count1,HIGH);  // Desenha o cacto
+  delay(gameSpeed);           // Velocidade das luzes
+  digitalWrite(count1,LOW);   // Apaga o cacto
+
   count1--;
-  count2--;
-  count3++;
+  count2++;
 }
